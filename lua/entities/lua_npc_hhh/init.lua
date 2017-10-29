@@ -110,6 +110,10 @@ function ENT:RunBehaviour()
 end
 
 function ENT:ChaseTarget(target, options)
+	if not IsValid(target) then
+		return "invalid"
+	end
+
 	local options = options or {}
 
 	local path = Path("Chase")
@@ -121,7 +125,7 @@ function ENT:ChaseTarget(target, options)
 		return "failed"
 	end
 
-	while path:IsValid() do
+	while path:IsValid() and target:IsValid() do
 		path:Chase(self, target)
 
 		if options.draw then
