@@ -85,8 +85,9 @@ function ENT:RunBehaviour()
 		local ply
 		local entities = ents.FindInPVS(self)
 		for i = 1, #entities do
-			if entities[i]:IsPlayer() then
-				ply = plys[i]
+			local ent = entities[i]
+			if ent:IsPlayer() then
+				ply = ent
 				break
 			end
 		end
