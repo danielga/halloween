@@ -36,7 +36,7 @@ function ENT:Initialize()
 	self:SetHealth(9001)
 	self:SetCollisionGroup(COLLISION_GROUP_WORLD)
 	self:SetSolidMask(MASK_NPCWORLDSTATIC)
-	self:SetCollisionBounds(Vector(-20, -20, 20), Vector(20, 20, 90))
+	self:SetCollisionBounds(Vector(-13, -13, 20), Vector(13, 13, 90))
 
 	self.loco:SetDesiredSpeed(120)
 	self.loco:SetDeathDropHeight(500)
