@@ -26,10 +26,6 @@ local walktable = {
 
 local pathopts = {draw = game.SinglePlayer(), repath = 0.1}
 
-local boo = "vo/halloween_boo%i.mp3" -- 1 to 7
-local haunted = "vo/halloween_haunted%i.mp3" -- 1 to 5
-local moan = "vo/halloween_moan%i.mp3" -- 1 to 4
-
 function ENT:Initialize()
 	self:SetModel("models/props_halloween/ghost.mdl")
 	self:SetNotSolid(true)

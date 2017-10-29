@@ -10,6 +10,10 @@ ENT.AutomaticFrameAdvance = true
 ENT.PhysgunDisabled = true
 ENT.m_tblToolsAllowed = {}
 
+local boo = "vo/halloween_boo%i.mp3" -- 1 to 7
+local haunted = "vo/halloween_haunted%i.mp3" -- 1 to 5
+local moan = "vo/halloween_moan%i.mp3" -- 1 to 4
+
 function ENT:CanConstruct()
 	return false
 end
