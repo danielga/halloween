@@ -1,6 +1,6 @@
 ENT.Base = "base_nextbot"
 ENT.Author = "MetaMan"
-ENT.PrintName = "Headless Horseless Horsemann (NextBot)"
+ENT.PrintName = "Headless Horseless Horsemann"
 
 ENT.Spawnable = false
 ENT.AdminSpawnable = false
