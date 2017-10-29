@@ -173,3 +173,9 @@ function ENT:Attack(ply)
 	dmg:SetDamagePosition(ply:GetPos() + Vector(0, 0, 64))
 	ply:TakeDamageInfo(dmg)
 end
+
+hook.Add("PlayerShouldTakeDamage", "Horseless Headless Horsemann damage", function(ply, att)
+	if att:GetClass() == "lua_npc_hhh" then
+		return true
+	end
+end)
