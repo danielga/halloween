@@ -24,7 +24,10 @@ end
 
 if pcall(require, "landmark") and LMVector then
 	LandmarkVector = function(x, y, z, landmark)
-		return LMVector(x, y, z, landmark, true):pos()
+		local lmvector = LMVector(x, y, z, landmark, true)
+		if lmvector then
+			return lmvector:pos()
+		end
 	end
 end
 
