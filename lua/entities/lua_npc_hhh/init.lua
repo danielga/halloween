@@ -49,6 +49,7 @@ function ENT:Initialize()
 	self:SetModel("models/bots/headless_hatman.mdl")
 	self:SetHealth(9001)
 	self:SetCollisionGroup(COLLISION_GROUP_WORLD)
+	self:SetSolidMask(MASK_NPCWORLDSTATIC)
 	self:SetCollisionBounds(Vector(-13, -13, 0), Vector(13, 13, 120))
 
 	self.weapon = ents.Create("base_anim")
