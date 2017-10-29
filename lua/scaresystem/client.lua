@@ -68,3 +68,6 @@ hook.Add("ShouldDrawLocalPlayer", "Scare System", function(ply)
 		return true
 	end
 end)
+
+function PLAYER:SetScared(bool, time, dont_touch_speeds)
+end
