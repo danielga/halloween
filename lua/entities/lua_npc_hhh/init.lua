@@ -83,9 +83,9 @@ end
 function ENT:RunBehaviour()
 	while true do
 		local ply
-		local plys = player.GetHumans()
-		for i = 1, #plys do
-			if plys[i]:UniqueID() == "2771437176" or plys[i]:UniqueID() == "1" then
+		local entities = ents.FindInPVS(self)
+		for i = 1, #entities do
+			if entities[i]:IsPlayer() then
 				ply = plys[i]
 				break
 			end
