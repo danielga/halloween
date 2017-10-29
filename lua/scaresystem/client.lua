@@ -69,5 +69,7 @@ hook.Add("ShouldDrawLocalPlayer", "Scare System", function(ply)
 	end
 end)
 
+local PLAYER = FindMetaTable("Player")
+
 function PLAYER:SetScared(bool, time, dont_touch_speeds)
 end
