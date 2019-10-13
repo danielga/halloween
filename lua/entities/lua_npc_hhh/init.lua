@@ -18,32 +18,7 @@ local ACT_RUN_ITEM1 = 1194
 local ACT_RUN_MELEE = 1173
 local ACT_ATTACK_STAND = 1203
 
-local function LandmarkVector(x, y, z)
-	return Vector(x, y, z)
-end
-
-if pcall(require, "landmark") and LMVector then
-	LandmarkVector = function(x, y, z, landmark)
-		local lmvector = LMVector(x, y, z, landmark, true)
-		if lmvector then
-			return lmvector:pos()
-		end
-	end
-end
-
-local walktable = {
-	LandmarkVector(-115, 982, -41, "ccal"),
-	LandmarkVector(-377, -120, -8, "lobby"),
-	LandmarkVector(-486, 258, -56, "land_theater"),
-	LandmarkVector(-347, -5, -8, "sauna"),
-	LandmarkVector(-425, -1065, -672, "blkbx"),
-	LandmarkVector(-18, -542, -520, "blkbx"),
-	LandmarkVector(-772, 1446, -8, "lobby"),
-	LandmarkVector(16, 7, -8, "minigame"),
-	LandmarkVector(-787, 2068, -8, "lobby")
-}
-
-local pathopts = {draw = game.SinglePlayer(), repath = 0.1}
+local pathopts = {draw = game.SinglePlayer(), repath = 1}
 
 function ENT:Initialize()
 	self:SetModel("models/bots/headless_hatman.mdl")
@@ -57,7 +32,12 @@ function ENT:Initialize()
 	self.weapon:AddEffects(EF_BONEMERGE)
 	self.weapon:Spawn()
 
-	self.loco:SetDeathDropHeight(500)
+	self.loco:SetDesiredSpeed(200)
+	self.loco:SetDeathDropHeight(2048)
+	self.loco:SetJumpHeight(128)
+	self.loco:SetStepHeight(32)
+	self.loco:SetAcceleration(1000)
+	self.loco:SetDeceleration(1000)
 
 	self.__sound = 0
 end
@@ -101,8 +81,24 @@ function ENT:RunBehaviour()
 		else
 			self:StartActivity(ACT_RUN_ITEM1)
 			self.loco:SetDesiredSpeed(200)
-			local pos = table.Random(walktable)
+
+			local maxheight = self.loco:GetJumpHeight()
+			local walktable = navmesh.Find(self:GetPos(), 2048, maxheight, maxheight)
+			if #walktable == 0 then
+				coroutine.wait(1)
+				continue
+			end
+
+			local area = table.Random(walktable)
+			if area == nil then
+				coroutine.wait(1)
+				continue
+			end
+
+			local pos = area:GetRandomPoint()
 			self:MoveToPos(pos, pathopts)
+
+			coroutine.wait(3)
 		end
 
 		coroutine.yield()

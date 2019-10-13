@@ -2,32 +2,7 @@ AddCSLuaFile("client.lua")
 AddCSLuaFile("shared.lua")
 include("shared.lua")
 
-local function LandmarkVector(x, y, z)
-	return Vector(x, y, z)
-end
-
-if pcall(require, "landmark") and LMVector then
-	LandmarkVector = function(x, y, z, landmark)
-		local lmvector = LMVector(x, y, z, landmark, true)
-		if lmvector then
-			return lmvector:pos()
-		end
-	end
-end
-
-local walktable = {
-	LandmarkVector(-115, 982, -41, "ccal"),
-	LandmarkVector(-377, -120, -8, "lobby"),
-	LandmarkVector(-486, 258, -56, "land_theater"),
-	LandmarkVector(-347, -5, -8, "sauna"),
-	LandmarkVector(-425, -1065, -672, "blkbx"),
-	LandmarkVector(-18, -542, -520, "blkbx"),
-	LandmarkVector(-772, 1446, -8, "lobby"),
-	LandmarkVector(16, 7, -8, "minigame"),
-	LandmarkVector(-787, 2068, -8, "lobby")
-}
-
-local pathopts = {draw = game.SinglePlayer(), repath = 0.1}
+local pathopts = {draw = true, repath = 1}
 
 function ENT:Initialize()
 	self:SetModel("models/props_halloween/ghost.mdl")
@@ -38,8 +13,10 @@ function ENT:Initialize()
 	self:SetSolidMask(MASK_NPCWORLDSTATIC)
 	self:SetCollisionBounds(Vector(-13, -13, 20), Vector(13, 13, 90))
 
-	self.loco:SetDesiredSpeed(120)
-	self.loco:SetDeathDropHeight(500)
+	self.loco:SetDesiredSpeed(128)
+	self.loco:SetDeathDropHeight(2048)
+	self.loco:SetJumpHeight(256)
+	self.loco:SetStepHeight(32)
 
 	self.__delay = 0
 	self.__sound = 0
@@ -48,10 +25,23 @@ end
 function ENT:RunBehaviour()
 	while true do
 		self:StartActivity(ACT_RUN)
-		local pos = table.Random(walktable)
+		local maxheight = self.loco:GetJumpHeight()
+		local walktable = navmesh.Find(self:GetPos(), 2048, maxheight, maxheight)
+		if #walktable == 0 then
+			coroutine.wait(1)
+			continue
+		end
+
+		local area = table.Random(walktable)
+		if area == nil then
+			coroutine.wait(1)
+			continue
+		end
+
+		local pos = area:GetRandomPoint()
 		self:MoveToPos(pos, pathopts)
 
-		coroutine.yield()
+		coroutine.wait(3)
 	end
 end
 
