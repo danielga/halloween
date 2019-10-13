@@ -64,16 +64,17 @@ end
 
 function ENT:RunBehaviour()
 	while true do
-		local ply
+		local plys = {}
 		local entities = ents.FindInPVS(self)
 		for i = 1, #entities do
 			local ent = entities[i]
 			if ent:IsPlayer() then
-				ply = ent
+				table.insert(plys, ent)
 				break
 			end
 		end
 
+		local ply = table.Random(plys)
 		if IsValid(ply) and ply:Alive() then
 			self:StartActivity(ACT_RUN_ITEM1)
 			self.loco:SetDesiredSpeed(360)
