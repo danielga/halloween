@@ -1,3 +1,5 @@
+AddCSLuaFile()
+
 ENT.Base = "base_anim"
 ENT.Author = "MetaMan"
 ENT.PrintName = "Horseless Headless Horsemann's Headtaker"
