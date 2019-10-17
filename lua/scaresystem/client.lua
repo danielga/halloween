@@ -62,7 +62,7 @@ hook.Add("CalcView", "Scare System", function(ply, pos, angles, fov, nearz, farz
 		return {origin = trace.Hit and trace.HitPos + forward * 5 or endpos}
 	end
 end)
- 
+
 hook.Add("ShouldDrawLocalPlayer", "Scare System", function(ply)
 	if isscared then
 		return true
@@ -71,5 +71,5 @@ end)
 
 local PLAYER = FindMetaTable("Player")
 
-function PLAYER:SetScared(bool, time, dont_touch_speeds)
+function PLAYER:SetScared()
 end

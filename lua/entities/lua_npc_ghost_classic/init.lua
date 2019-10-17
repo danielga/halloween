@@ -66,7 +66,7 @@ function ENT:Think()
 		self.__sound = CurTime() + math.random(15, 45)
 	end
 
-	if self:GetNPCState() ~= NPC_STATE_DEAD and CurTime() > self.__delay then			
+	if self:GetNPCState() ~= NPC_STATE_DEAD and CurTime() > self.__delay then
 		if self:GetNPCState() ~= NPC_STATE_IDLE then
 			self:SetNPCState(NPC_STATE_IDLE)
 		end
