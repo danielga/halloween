@@ -7,7 +7,7 @@ PrecacheParticleSystem("ghost_glow")
 local PLAYER = FindMetaTable("Player")
 
 function PLAYER:IsScared()
-	return self:GetNetworkedBool("scared", false)
+	return self:GetNWBool("scared", false)
 end
 
 if CLIENT then

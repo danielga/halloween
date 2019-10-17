@@ -47,7 +47,7 @@ function PLAYER:SetScared(bool, time, dont_touch_speeds)
 		self:SetCrouchedWalkSpeed(0.1)
 		self:SetCanWalk(false)
 
-		self:SetNetworkedBool("scared", true)
+		self:SetNWBool("scared", true)
 
 		local attach = self:LookupAttachment("eyes")
 		if attach == -1 then
@@ -66,8 +66,8 @@ function PLAYER:SetScared(bool, time, dont_touch_speeds)
 
 		stop_queue[self] = nil
 
-		self:SetNetworkedBool("scared", false)
-		
+		self:SetNWBool("scared", false)
+
 		self:StopParticles()
 	end
 end
