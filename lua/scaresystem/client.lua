@@ -11,10 +11,12 @@ hook.Add("Think", "Scare System", function()
 
 	local ghosts = ents.FindByClass("lua_npc_ghost")
 	for i = 1, #ghosts do
-		local dist = localplayer:GetPos():Distance(ghosts[i]:GetPos())
-		if dist <= 200 and dist < distance then
-			hasghost = true
-			distance = dist
+		if not ghosts[i]:IsDormant() then
+			local dist = localplayer:GetPos():Distance(ghosts[i]:GetPos())
+			if dist <= 200 and dist < distance then
+				hasghost = true
+				distance = dist
+			end
 		end
 	end
 end)
